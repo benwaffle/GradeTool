@@ -1,4 +1,6 @@
-import gui.LoginWindow;
+package gradetool;
+
+import gradetool.gui.*;
 
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;

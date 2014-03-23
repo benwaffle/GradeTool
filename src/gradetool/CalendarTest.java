@@ -1,4 +1,6 @@
-import gui.*;
+package gradetool;
+
+import gradetool.gui.*;
 
 import java.awt.*;
 import javax.swing.*;

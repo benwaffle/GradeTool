@@ -1,4 +1,4 @@
-package gui;
+package gradetool.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -13,8 +13,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableCellRenderer;
 
-import data.Assignment;
-import data.Course;
+import gradetool.data.*;
 
 @SuppressWarnings("serial")
 public class PSPanel extends JPanel {

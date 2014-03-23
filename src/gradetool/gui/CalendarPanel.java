@@ -1,4 +1,4 @@
-package gui;
+package gradetool.gui;
 
 import java.awt.*;
 import java.awt.image.*;
@@ -8,9 +8,9 @@ import javax.swing.*;
 import java.util.*;
 import java.text.*;
 
-import gui.gfx.*;
-import gui.calendar.*;
-import data.*;
+import gradetool.gui.gfx.*;
+import gradetool.gui.calendar.*;
+import gradetool.data.*;
 
 /**
  * Calendar item.

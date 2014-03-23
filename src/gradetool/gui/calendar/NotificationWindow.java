@@ -1,4 +1,4 @@
-package gui.calendar;
+package gradetool.gui.calendar;
 
 import java.awt.*;
 
