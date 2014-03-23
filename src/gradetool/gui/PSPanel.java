@@ -44,7 +44,8 @@ public class PSPanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int row = asmtsView.rowAtPoint(e.getPoint());
-				calView.addAssignment((Assignment)asmtsView.getValueAt(row, 0));
+				if (asmtsView.getValueAt(row, 0) instanceof Assignment)
+					calView.addAssignment((Assignment)asmtsView.getValueAt(row, 0));
 			}
 		});
 
@@ -94,15 +95,15 @@ class AssignmentCellRenderer extends JPanel implements TableCellRenderer {
 		if (value != null && value instanceof Assignment) {
 			Assignment rowAss = (Assignment)value;
 			
-			setLayout(new FlowLayout());
+			setLayout(new BorderLayout());
 			
-			this.add(new JLabel(rowAss.toString()), FlowLayout.LEFT);
+			this.add(new JLabel(rowAss.toString()), BorderLayout.WEST);
 			this.add(new JLabel(
 					"Due: " + rowAss.getCalendar().get(Calendar.MONTH) +
 					"/" + rowAss.getCalendar().get(Calendar.DAY_OF_MONTH) + 
 					"/" + rowAss.getCalendar().get(Calendar.YEAR)
-					), FlowLayout.CENTER);
-			this.add(new JButton(">"), FlowLayout.RIGHT);
+					), BorderLayout.CENTER);
+			this.add(new JButton(">"), BorderLayout.EAST);
 		}
 		return this;
 	}

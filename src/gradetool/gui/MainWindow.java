@@ -1,6 +1,6 @@
 package gradetool.gui;
 
-import gui.calendar.NotificationWindow;
+import gradetool.gui.calendar.NotificationWindow;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
