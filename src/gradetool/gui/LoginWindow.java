@@ -70,9 +70,7 @@ public class LoginWindow extends JFrame {
 		gbc_lblNewLabel.gridy = 3;
 		getContentPane().add(usernameLbl, gbc_lblNewLabel);
 		
-		usernameField = new JTextField(
-				"beniof"
-				);
+		usernameField = new JTextField("");
 		GridBagConstraints gbc_txtUsername = new GridBagConstraints();
 		gbc_txtUsername.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtUsername.insets = new Insets(0, 0, 5, 0);

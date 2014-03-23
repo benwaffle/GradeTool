@@ -18,7 +18,7 @@ public class PostNotification {
 				URLEncoder.encode(phone, "UTF-8"),
 				URLEncoder.encode(body, "UTF-8")
 			);
-			URL url = new URL("http://requestb.in/vzcb63vz");
+			URL url = new URL("http://iofel.me/");
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("POST");
 			con.setDoOutput(true);
