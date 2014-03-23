@@ -1,31 +1,45 @@
 package gradetool.net;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
-import java.util.Date;
+import java.io.*;
+import java.net.*;
+import java.util.*;
 
 public class PostNotification {
 	public static void main(String[] args) {
-		addToTwilioQueue("phone", "body", new Date(123456));
+		addToTwilioQueue("phone", "body", new Date(12));
+		System.out.println("Post made.");
 	}
 	
-	public static void addToTwilioQueue(String phone, String body, Date when){
+	public static void addToTwilioQueue(String phone, String body, Date when) {
 		try {
-			URLConnection conn = new URL("http://requestb.in/vzcb63vz").openConnection();
-			conn.setDoOutput(true);
-			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+			String query = String.format(
+				"notif_due=%s&notif_phone=%s&notif_body=%s", 
+				URLEncoder.encode(when.toString(), "UTF-8"),
+				URLEncoder.encode(phone, "UTF-8"),
+				URLEncoder.encode(body, "UTF-8")
+			);
+			URL url = new URL("http://requestb.in/vzcb63vz");
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con.setRequestMethod("POST");
+			con.setDoOutput(true);
+			con.setDoInput(true);
+			con.setInstanceFollowRedirects(false);
+			con.setRequestProperty("Content-Type", 
+				"application/x-www-form-urlencoded;charset=UTF-8");
+			con.setRequestProperty("charset", "utf-8");
+			con.setRequestProperty("Content-Length",
+				Integer.toString(query.getBytes().length));
+			con.setUseCaches(false);
+			con.connect();
 			
-			String query = String.format("notif_due=%s&notif_phone=%s&notif_body=%s", 
-					URLEncoder.encode(when.toString(), "UTF-8"),
-					URLEncoder.encode(phone, "UTF-8"),
-					URLEncoder.encode(body, "UTF-8")
-					);
+			OutputStream os = con.getOutputStream();
+			os.write(query.getBytes());
+			os.flush();
+			os.close();
 			
-			OutputStream os = conn.getOutputStream();
-			os.write(query.getBytes("UTF-8"));
+			int resp = con.getResponseCode();
+			System.out.println("Response: "+resp);
+			con.disconnect();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
 Name: GradeTool
-Main-Class: GradeTool
+Main-Class: gradetool.net.PostNotification
 Class-Path: . lib/psapi.jar lib/twilio.jar
  
