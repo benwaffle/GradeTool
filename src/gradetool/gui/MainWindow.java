@@ -20,8 +20,8 @@ import powerschool.rest.vo.xsd.StudentDataVO;
 
 import com.benwaffle.pslib.PSlib;
 
-import data.*;
-import gui.calendar.*;
+import gradetool.data.*;
+import gradetool.gui.calendar.*;
 
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame {

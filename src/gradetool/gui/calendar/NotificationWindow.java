@@ -2,7 +2,7 @@ package gradetool.gui.calendar;
 
 import java.awt.*;
 
-import data.*;
+import gradetool.data.*;
 
 public class NotificationWindow {
 	private Assignment e;
