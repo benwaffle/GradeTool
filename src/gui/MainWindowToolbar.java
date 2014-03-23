@@ -29,12 +29,12 @@ public class MainWindowToolbar extends JToolBar {
 
 	private void setSizes(int parentWidth) {
 		Dimension menuDim = userMenu.getPreferredSize();
-		menuDim.width = parentWidth / 4;
+		menuDim.width = parentWidth / 5;
 		userMenu.setMinimumSize(menuDim);
 		userMenu.setMaximumSize(menuDim);
 		
 		Dimension buttDim = showPSPanel.getPreferredSize();
-		buttDim.width = parentWidth / 4 * 3 / 2;
+		buttDim.width = parentWidth / 5 * 4 / 2;
 		showPSPanel.setMinimumSize(buttDim);
 		showPSPanel.setMaximumSize(buttDim);
 		showCalPanel.setMinimumSize(buttDim);
