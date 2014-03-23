@@ -10,6 +10,7 @@ import java.text.*;
 
 import gui.gfx.*;
 import gui.calendar.*;
+import data.*;
 
 /**
  * Calendar item.
@@ -27,6 +28,8 @@ public class CalendarPanel extends JPanel {
 		"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
 		"Saturday"
 	};
+	private Rectangle[] rects; // corresponding rectangles
+	private ArrayList<Assignment>[] assignments; // list of events
 	
 	// style
 	private Color bgColor;
@@ -78,6 +81,9 @@ public class CalendarPanel extends JPanel {
 		// colors
 		bgColor = new Color(32, 32, 32);
 		
+		// data
+		rects = new Rectangle[31];
+		assignments = new ArrayList[31];
 	}
 	/**
 	 * Creates a new <code>BufferedImage</code> from graphics. Useful for
@@ -105,6 +111,19 @@ public class CalendarPanel extends JPanel {
 			lincr = (int)Math.round((double)rheight/6);
 		rwidth = content.width - btm;
 			rincr = (int)Math.round((double)rwidth/7);
+		
+		// reset map items
+		// update rendering of numerical days
+		for (int i=0; i<assignments.length; i++)
+			if (assignments[i] != null)
+				for (Assignment a : assignments[i]) {
+					Rectangle r = rects[i];
+					int dOff = 7 - a.getCalendar().getMinimalDaysInFirstWeek();
+					int x = 20 + rincr*(a.getCalendar().get(Calendar.DAY_OF_WEEK)-1),
+						y = top + lincr*((dOff+a.getCalendar().get(Calendar.DAY_OF_MONTH))/7);
+					r = new Rectangle(x, y, rincr, lincr);
+					rects[i] = r; // reset rectangles
+				}
 		super.paint(g);
 	}
 		
@@ -146,7 +165,35 @@ public class CalendarPanel extends JPanel {
 			day = 7 - cal.getMinimalDaysInFirstWeek(),
 			iDay = day;
 		for (int i=iDay; i<last+iDay; day=(++i)%7)
-			Rendering.centerText(g, (i-iDay+1)+"", 20 + 10 + day*rincr, 150 + lincr*(i/7));
+			g.drawString((i-iDay+1)+"", 20+10+day*rincr, top+20+lincr*(i/7));
+	}
+	private void renderEvents(Graphics2D g) {
+		g.setColor(Color.red);
+		for (int i=0; i<assignments.length; i++)
+			if (assignments[i] != null)
+				for (int j=0; j<assignments[i].size(); j++) {
+					ArrayList<Assignment> as = assignments[i];
+					Assignment a = as.get(j);
+					int px = 30, px2 = 10, py = 10;
+					Rectangle r = rects[i],
+						ar = new Rectangle((int)r.getX() + px,
+						(int)(r.getY() + r.getHeight()*j/((double)as.size()))
+							+ (j == 0 ? py : 0), 
+						(int)r.getWidth() - (px+px2),
+						(int)(r.getHeight()/((double)as.size())) - 2*py);
+					g.fillRect((int)ar.getX(), (int)ar.getY(),
+						(int)ar.getWidth(), (int)ar.getHeight());
+					Color old = g.getColor();
+					g.setColor(new Color(210,210,210));
+					g.setFont(new Font("Arial", Font.PLAIN, 14));
+					g.drawString(a.getTitle(), (int)ar.getX(), (int)ar.getY()
+						+ (int)(ar.getHeight()*0.8));
+					g.setColor(old);
+				}
+	}
+	private void renderNotification(Graphics2D g) {
+		if (modal != null)
+			modal.render(g, content); // render with notification window
 	}
 	// render functions
 	
@@ -165,15 +212,18 @@ public class CalendarPanel extends JPanel {
 		
 		renderTitle(g);
 		renderGrid(g);
+		renderEvents(g);
 		renderLabels(g);
+		renderNotification(g); // modal goes above all
 		
 		screenUpdate();
-		repaint();
+		// repaint(); // called on mouse events	
 	}
 	
 	// event handling
 	protected void processMouseMotionEvent(MouseEvent e) {
 		mouse = e.getPoint();
+		repaint();
 	}
 	/**
 	 * Displays a new notification window as a modal dialog in the Calendar.
@@ -181,6 +231,21 @@ public class CalendarPanel extends JPanel {
 	 */
 	public void displayNotification(NotificationWindow win) {
 		modal = win;
-		
+		modal.set(true); // open the notification object
+	}
+	
+	// data handling
+	public void addAssignment(Assignment a) {
+		for (ArrayList<Assignment> as : assignments)
+			if (as != null && as.contains(a)) return;// prevent duplicate entries
+		Calendar cal = a.getCalendar();
+		int dOff = 7 - cal.getMinimalDaysInFirstWeek();
+		int d = cal.get(Calendar.DAY_OF_MONTH);
+		Rectangle r = new Rectangle(20 + d*rincr, top + lincr*((dOff+d)/7),
+			rincr, lincr);
+		rects[d-1] = r;
+		if (assignments[d-1] == null)
+			assignments[d-1] = new ArrayList<Assignment>();
+		assignments[d-1].add(a);
 	}
 }

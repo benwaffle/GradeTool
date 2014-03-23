@@ -18,8 +18,10 @@ public class Assignment {
 	 * @param due The due date of the assignment.
 	 * @param descr A more verbose description of the event.
 	 * @param subj A predetermined scholarly subject of the event.
+	 * @param psId PowerSchool ID
 	 */
-	public Assignment(String title, Date due, String descr, Long psId, Long psSecID) {
+	public Assignment(String title, Date due, String descr, Long psId,
+		Long psSecID) {
 		this.title = title;
 		dueDate = due;
 		description = descr;
@@ -40,7 +42,11 @@ public class Assignment {
 		// TODO: work on notification date
 		notificationDate = date;
 	}
-	@Override
+	public Calendar getCalendar() {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(dueDate);
+		return cal;
+	}
 	public String toString() {
 		return title;
 	}
