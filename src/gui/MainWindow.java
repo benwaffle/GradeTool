@@ -20,8 +20,8 @@ import powerschool.rest.vo.xsd.StudentDataVO;
 
 import com.benwaffle.pslib.PSlib;
 
-import data.Assignment;
-import data.Course;
+import data.*;
+import gui.calendar.*;
 
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame {
@@ -60,6 +60,7 @@ public class MainWindow extends JFrame {
 	private ArrayList<Course> courses;
 	
 	public Course[] getCourses(PSlib lib){
+		if (lib == null) return null;
 		StudentDataVO data = lib.getStudentData();
 		HashMap<Long, Course> tmpCourses = new HashMap<Long, Course>();
 		
@@ -127,7 +128,23 @@ public class MainWindow extends JFrame {
 		// add wrapper to current window
 		getContentPane().add(wrapper);
 		
+		// test
+		testCalendarData(calendar);
+		
 		// show this window
 		setVisible(true);
+	}
+	/**
+	 * Tests functionality of the <code>CalendarPanel</code>.
+	 */
+	public void testCalendarData(CalendarPanel c) {
+		Date current = new Date();
+		NotificationWindow nw = new NotificationWindow(
+			new Assignment("Floating Project", new Date(), "Mr. Weems", 0L, 0L)
+		);
+		c.addAssignment(new Assignment("Floating Project", new Date(), "Mr. Weems", 0L, 0L));
+		c.addAssignment(new Assignment("Microscopy Paper", new Date(), "Teacher", 0L, 0L));
+		current.setDate(current.getDay() + 10); // set ten days ahead
+		c.addAssignment(new Assignment("Project", current, "Data", 0L, 0L));
 	}
 }
