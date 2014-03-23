@@ -18,8 +18,7 @@ public class Calendar extends JPanel {
 				.getDefaultScreenDevice().getDefaultConfiguration();
 		
 		setSize(content = new Dimension(getWidth(), getHeight()));
-		setSize(content);
-		setBackground(Color.red);
+		setBackground(new Color(0,0,0,0));
 	}
 	/**
 	 * Creates a new <code>BufferedImage</code> from graphics. Useful for
@@ -40,6 +39,10 @@ public class Calendar extends JPanel {
 	public void screenUpdate() {
 		Toolkit.getDefaultToolkit().sync();
 	}
+	public void paint(Graphics g) {
+		content = new Dimension(getWidth(), getHeight());
+		super.paint(g);
+	}
 	/* Renders contents to the <code>canvas</code> from graphics. */
 	public void paintComponent(Graphics g) { // formerly render(Graphics2D g)
 		Graphics2D g2d = (Graphics2D) g;
@@ -49,5 +52,6 @@ public class Calendar extends JPanel {
 		g2d.setColor(Color.red);
 		g2d.fillArc(50, 50, 200, 200, 0, 360);
 		screenUpdate();
+		repaint();
 	}
 }
