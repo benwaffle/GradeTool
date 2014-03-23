@@ -25,7 +25,7 @@ public class Calendar extends JPanel implements Runnable {
 		gc = GraphicsEnvironment.getLocalGraphicsEnvironment()
 				.getDefaultScreenDevice().getDefaultConfiguration();
 		
-		setSize(content = new Dimension(800, 600));
+		setSize(content = new Dimension(800, 540));
 		canvas = new Canvas(gc) {
 			public void paint(Graphics g) {
 				System.out.println("Paint.");
