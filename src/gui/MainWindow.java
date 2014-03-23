@@ -9,6 +9,9 @@ public class MainWindow extends JFrame {
 	private Dimension screen;
 	private Dimension window;
 	
+	// specific panels
+	private Calendar calendar;
+	
 	public MainWindow() {
 		super("GradeTool");
 		
@@ -17,8 +20,12 @@ public class MainWindow extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds((screen.width-window.width)/2, (screen.height-window.height)/2,
 			window.width, window.height);
-		setVisible(true);
 		
+		calendar = new Calendar();
+		getContentPane().add(calendar);
+		
+		setResizable(false);
+		setVisible(true);
 	}
 
 }
