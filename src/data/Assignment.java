@@ -47,4 +47,7 @@ public class Assignment {
 		cal.setTime(dueDate);
 		return cal;
 	}
+	public String toString() {
+		return title;
+	}
 }

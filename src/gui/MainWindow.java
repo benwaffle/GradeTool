@@ -55,18 +55,18 @@ public class MainWindow extends JFrame {
 	 */
 	private PSPanel powerschool;
 	
-	private PSlib lib;
-	
-	private ArrayList<Course> courses;
-	
 	public Course[] getCourses(PSlib lib){
 		if (lib == null) return null;
 		StudentDataVO data = lib.getStudentData();
 		HashMap<Long, Course> tmpCourses = new HashMap<Long, Course>();
 		
-		for (SectionVO sec : data.getSections()) // get all courses
+		for (SectionVO sec : data.getSections()){ // get all courses
+			if (sec.getSchoolCourseTitle().toLowerCase().contains("lunch") ||
+					sec.getSchoolCourseTitle().toLowerCase().contains("homeroom"))
+				continue;
 			if (!tmpCourses.containsKey(sec.getId()))
 				tmpCourses.put(sec.getId(), new Course(sec.getSchoolCourseTitle(), sec.getId()));
+		}
 		
 		for (AssignmentVO ass : data.getAssignments()){
 			Calendar dueDate = Calendar.getInstance();
@@ -90,8 +90,6 @@ public class MainWindow extends JFrame {
 		// this window
 		super("GradeTool");
 		setResizable(true);
-		
-		this.lib = lib;
 		
 		// set dimensions and center window
 		screen = Toolkit.getDefaultToolkit().getScreenSize();

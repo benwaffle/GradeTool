@@ -6,7 +6,7 @@ import data.*;
 
 public class NotificationWindow {
 	private Assignment e;
-	private Rectange rect;
+	private Rectangle rect;
 	private boolean open = false;
 	
 	public NotificationWindow(Assignment e) {

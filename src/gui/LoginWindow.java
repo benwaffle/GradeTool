@@ -3,6 +3,7 @@ package gui;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.prefs.Preferences;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -69,7 +70,9 @@ public class LoginWindow extends JFrame {
 		gbc_lblNewLabel.gridy = 3;
 		getContentPane().add(usernameLbl, gbc_lblNewLabel);
 		
-		usernameField = new JTextField();
+		usernameField = new JTextField(
+				"beniof"
+				);
 		GridBagConstraints gbc_txtUsername = new GridBagConstraints();
 		gbc_txtUsername.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtUsername.insets = new Insets(0, 0, 5, 0);
@@ -104,7 +107,9 @@ public class LoginWindow extends JFrame {
 		gbc_lblNewLabel_2.gridy = 5;
 		getContentPane().add(serverLbl, gbc_lblNewLabel_2);
 		
-		serverField = new JTextField();
+		serverField = new JTextField(
+				"https://ps01.bergen.org"
+				);
 		GridBagConstraints gbc_txtServer = new GridBagConstraints();
 		gbc_txtServer.insets = new Insets(0, 0, 5, 0);
 		gbc_txtServer.fill = GridBagConstraints.HORIZONTAL;
@@ -133,8 +138,7 @@ public class LoginWindow extends JFrame {
 
 	public void login(){
 		try {
-			if (psInit.isAlive())
-				psInit.wait(); // wait until finished init()
+			psInit.join(); // wait until finished init()
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -147,7 +151,6 @@ public class LoginWindow extends JFrame {
 			@Override
 			public void run() {
 				try {
-					System.out.println("logging in");
 					lib.login(usernameField.getText(), new String(passwordField.getPassword()));
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, "Wrong username or password!", 
