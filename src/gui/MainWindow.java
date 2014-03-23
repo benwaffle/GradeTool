@@ -1,14 +1,24 @@
 package gui;
 
-import javax.swing.JFrame;
+import java.awt.*;
+import java.awt.image.*;
+import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame {
+	private Dimension screen;
+	private Dimension window;
 	
 	public MainWindow() {
 		super("GradeTool");
-		setBounds(100, 100, 800, 600);
+		
+		window = new Dimension(800, 600);
+		screen = Toolkit.getDefaultToolkit().getScreenSize();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds((screen.width-window.width)/2, (screen.height-window.height)/2,
+			window.width, window.height);
 		setVisible(true);
-	}	
+		
+	}
 
 }
