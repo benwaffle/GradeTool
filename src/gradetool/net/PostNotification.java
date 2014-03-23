@@ -7,12 +7,9 @@ import java.net.*;
 import java.util.*;
 
 public class PostNotification {
-	public static void main(String[] args) {
-		addToTwilioQueue("+12018882057", "testing", Calendar.getInstance().getTime());
-	}
 	
 	public static void addToTwilioQueue(Assignment ass){
-		addToTwilioQueue("2018882057", "This is due tomorrow!!!\n" + ass.getTitle(), ass.getDueDate());
+		addToTwilioQueue("+12018882057", "This is due tomorrow!!!\n" + ass.getTitle(), ass.getDueDate());
 	}
 	
 	public static void addToTwilioQueue(String phone, String body, Date when) {

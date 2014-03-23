@@ -13,6 +13,7 @@ import com.benwaffle.pslib.PSlib;
 @SuppressWarnings("serial")
 public class LoginWindow extends JFrame {
 
+	JProgressBar jpb;
 	private JPanel contentPane;
 	private JTextField usernameField;
 	public JPasswordField passwordField;
@@ -29,8 +30,10 @@ public class LoginWindow extends JFrame {
 	 */
 	public LoginWindow(Thread ps) {
 		psInit = ps;
+		
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 500, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -130,6 +133,8 @@ public class LoginWindow extends JFrame {
 				login();
 			}
 		});
+		
+		
 		
 		setVisible(true);
 	}

@@ -37,6 +37,11 @@ public class PSPanel extends JPanel {
 			public TableCellRenderer getDefaultRenderer(Class<?> columnClass) {
 				return new AssignmentCellRenderer();
 			}
+			
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
 		};
 		asmtsView.setRowHeight(40);
 		
@@ -68,13 +73,13 @@ public class PSPanel extends JPanel {
 				setSelectionBackground(new Color(0, 128, 255));
 				setFixedCellHeight(30);
 				setFixedCellWidth(sidebarWidth);
-				setBackground(null);
 				setFont(new Font("Arial", Font.PLAIN, 20));
 				addListSelectionListener(selectLis);
 			}
 		};
 
 		JScrollPane sidebar = new JScrollPane(courseView);
+		sidebar.setBackground(null);
 		sidebar.setBorder(new MatteBorder(0, 0, 0, 1, Color.black));
 		add(sidebar, BorderLayout.WEST);
 		add(asmtsScroll, BorderLayout.CENTER);
@@ -99,7 +104,7 @@ class AssignmentCellRenderer extends JPanel implements TableCellRenderer {
 			
 			this.add(new JLabel(rowAss.toString()), BorderLayout.WEST);
 			this.add(new JLabel(
-					"Due: " + rowAss.getCalendar().get(Calendar.MONTH) +
+					"       Due: " + rowAss.getCalendar().get(Calendar.MONTH) +
 					"/" + rowAss.getCalendar().get(Calendar.DAY_OF_MONTH) + 
 					"/" + rowAss.getCalendar().get(Calendar.YEAR)
 					), BorderLayout.CENTER);

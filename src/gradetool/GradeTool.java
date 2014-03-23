@@ -24,7 +24,7 @@ public class GradeTool {
 					PSlib.init();
 				} catch (Exception e){
 					JOptionPane.showMessageDialog(null, 
-							"I can't connect to PowerSchool. Bye for now...", 
+							"I can't connect to PowerSchool. Please try again.", 
 							"Error", JOptionPane.ERROR_MESSAGE);
 					System.exit(1);
 				}

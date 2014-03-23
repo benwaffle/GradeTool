@@ -3,18 +3,17 @@ package gradetool.gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JToolBar;
 import javax.swing.border.MatteBorder;
 
 @SuppressWarnings("serial")
 public class Toolbar extends JToolBar {
-	JComboBox<String> userMenu = null;
+	JLabel curUser;
 	JButton showPSPanel = null, showCalPanel = null;
 
 	/**
@@ -30,7 +29,7 @@ public class Toolbar extends JToolBar {
 		setSizes(parentWidth);
 
 		setFloatable(false);
-		add(userMenu);
+		add(curUser);
 		add(showPSPanel);
 		add(showCalPanel);
 		
@@ -43,14 +42,7 @@ public class Toolbar extends JToolBar {
 	 * @param toggle
 	 */
 	private void create(ActionListener toggle, String name) {
-		userMenu = new JComboBox<String>(
-				new String[] { name, "Log Out" });
-		userMenu.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
+		curUser = new JLabel(name);
 
 		showPSPanel = new JButton("PowerSchool");
 		showPSPanel.setActionCommand("showps");
@@ -71,10 +63,10 @@ public class Toolbar extends JToolBar {
 	 */
 	private void setSizes(int parentWidth) {
 		// create dropdown menu
-		Dimension menuDim = userMenu.getPreferredSize();
+		Dimension menuDim = curUser.getPreferredSize();
 		menuDim.width = parentWidth / 5;
-		userMenu.setMinimumSize(menuDim);
-		userMenu.setMaximumSize(menuDim);
+		curUser.setMinimumSize(menuDim);
+		curUser.setMaximumSize(menuDim);
 
 		// get button dimensions
 		Dimension buttDim = showPSPanel.getPreferredSize();

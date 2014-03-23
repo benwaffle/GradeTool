@@ -4,6 +4,8 @@ import java.awt.*;
 import java.text.*;
 import java.util.*;
 
+import javax.swing.JOptionPane;
+
 import gradetool.data.*;
 import gradetool.gui.gfx.*;
 import gradetool.net.*;
@@ -52,6 +54,7 @@ public class NotificationWindow {
 	public void act(Point p) {
 		if (!rect.contains(p)) return;
 		bg = bg.darker();
+//		PostNotification.addToTwilioQueue(JOptionPane.showInputDialog("Phone number"), e.getTitle(), e.getDueDate());
 		PostNotification.addToTwilioQueue(e);
 	}
 	/**
