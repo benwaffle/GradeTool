@@ -6,11 +6,11 @@ import javax.swing.JComboBox;
 import javax.swing.JToolBar;
 
 @SuppressWarnings("serial")
-public class MainWindowToolbar extends JToolBar {
+public class Toolbar extends JToolBar {
 	JComboBox<String> userMenu = null;
 	JButton showPSPanel = null, showCalPanel = null;
 
-	public MainWindowToolbar(int parentWidth) {
+	public Toolbar(int parentWidth) {
 		create();
 		setSizes(parentWidth);
 

@@ -19,7 +19,7 @@ public class MainWindow extends JFrame {
 				window.width, window.height);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		add(new MainWindowToolbar(this.getWidth()), BorderLayout.NORTH);
+		add(new Toolbar(this.getWidth()), BorderLayout.NORTH);
 
 		setVisible(true);
 	}
