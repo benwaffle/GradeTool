@@ -19,7 +19,7 @@ public class MainWindow extends JFrame {
 	
 	public MainWindow() {
 		super("GradeTool");
-		setResizable(false);
+		setResizable(true);
 		
 		screen = Toolkit.getDefaultToolkit().getScreenSize();
 		window = new Dimension(1244, 700);
