@@ -22,8 +22,7 @@ public class MainWindow extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		calendar = new Calendar();
-
-		add(new MainWindowToolbar(this.getWidth()), BorderLayout.NORTH);
+		add(new Toolbar(this.getWidth()), BorderLayout.NORTH);
 		setVisible(true);
 		
 		addCalendar(calendar);
