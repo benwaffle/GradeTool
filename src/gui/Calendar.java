@@ -32,7 +32,8 @@ public class Calendar extends JPanel implements Runnable {
 			}
 		};
 		canvas.setSize(content);
-		add(canvas, 0);
+		setBackground(Color.red);
+		// add(canvas);
 	}
 	/**
 	 * Creates a new <code>BufferedImage</code> from graphics. Useful for
@@ -91,13 +92,14 @@ public class Calendar extends JPanel implements Runnable {
 	}
 	/* Starts the running of the main canvas. */
 	public void start() {
+		/*
 		background = createBufferedImage(content, true);
 		canvas.createBufferStrategy(2); // two buffers
 		do {
 			strategy = canvas.getBufferStrategy();
 		} while (strategy == null);
 		started = true;
-		run();
+		run();*/
 	}
 	/**
 	 * Iterates through the maincanvas.
