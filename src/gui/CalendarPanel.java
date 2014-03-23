@@ -58,8 +58,8 @@ public class CalendarPanel extends JPanel {
 	
 	// render functions
 	private void renderTitle(Graphics2D g) {
-		String month = (new Calendar()).getDisplayName(Calendar.MONTH,
-			Calendar.SHORT_FORMAT, new Locale("en_US"));
+		//String month = .getDisplayName(Calendar.MONTH,
+			//Calendar.SHORT_FORMAT, new Locale("en_US"));
 		g.setColor(new Color(220,250,255));
 		g.setFont(new Font("Arial", Font.PLAIN, 30));
 		g.drawString("March 2014", 30, 50);
