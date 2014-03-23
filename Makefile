@@ -22,7 +22,7 @@ all: $(JFILES)
 	$(JARCC) $(JARFLAGS) $(JAR) $(MANIFEST) -C $(BIN) .
 
 javadoc: $(JFILES)
-	$(JDOCCC) $(JDOPTS) $(JDFLAGS) -subpackages TestLoader $(SUBPACKAGES)
+	$(JDOCCC) $(JDOPTS) $(JDFLAGS) -subpackages gui gui.graph 
 
 clean: clean-javadoc
 	@rm -f $(JAR)

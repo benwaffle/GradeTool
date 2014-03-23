@@ -19,7 +19,7 @@ public class Calendar extends JPanel {
 		gc = GraphicsEnvironment.getLocalGraphicsEnvironment()
 				.getDefaultScreenDevice().getDefaultConfiguration();
 		
-		setSize(content = new Dimension(800, 540));
+		setSize(content = new Dimension(getWidth(), getHeight()));
 		setBackground(Color.red);
 	}
 	/**
@@ -44,6 +44,7 @@ public class Calendar extends JPanel {
 	/* Renders contents to the <code>canvas</code> from graphics. */
 	public void paintComponent(Graphics g) { // formerly render(Graphics2D g)
 		Graphics2D g2d = (Graphics2D) g;
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setColor(Color.black);
 		g2d.fillRect(0, 0, content.width, content.height);
 		g2d.setColor(Color.red);
