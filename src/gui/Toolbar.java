@@ -1,12 +1,10 @@
 package gui;
 
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
 @SuppressWarnings("serial")
@@ -14,13 +12,8 @@ public class Toolbar extends JToolBar {
 	JComboBox<String> userMenu = null;
 	JButton showPSPanel = null, showCalPanel = null;
 
-	PSPanel psPanel;
-	Calendar calPanel;
-	
-	public Toolbar(int parentWidth, PSPanel psPanel, Calendar calPanel) {
-		this.psPanel = psPanel;
-		this.calPanel = calPanel;
-		create();
+	public Toolbar(int parentWidth, ActionListener toggle) {
+		create(toggle);
 		setSizes(parentWidth);
 
 		setFloatable(false);
@@ -29,25 +22,17 @@ public class Toolbar extends JToolBar {
 		add(showCalPanel);
 	}
 
-	private void create() {
+	private void create(ActionListener toggle) {
 		userMenu = new JComboBox<String>(
 				new String[] {"Ben Iofel","Log Out" });
 		
 		showPSPanel = new JButton("PowerSchool");
-		showPSPanel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				psPanel.setVisible(true);
-				calPanel.setVisible(false);
-			}
-		});
+		showPSPanel.setActionCommand("showps");
+		showPSPanel.addActionListener(toggle);
 		
 		showCalPanel = new JButton("Calendar");
-		showCalPanel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				psPanel.setVisible(false);
-				calPanel.setVisible(true);
-			}
-		});
+		showCalPanel.setActionCommand("showcal");
+		showCalPanel.addActionListener(toggle);
 	}
 
 	private void setSizes(int parentWidth) {

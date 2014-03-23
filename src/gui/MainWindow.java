@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
@@ -9,15 +11,15 @@ public class MainWindow extends JFrame {
 	private Dimension screen;
 	private Dimension window;
 	
+	private CardLayout layoutMgr;
+	
+	private JPanel wrapper;
 	private Calendar calendar;
 	private PSPanel powerschool;
 	
 	public MainWindow() {
 		super("GradeTool");
 		setResizable(false);
-
-		calendar = new Calendar();
-		powerschool = new PSPanel();
 		
 		window = new Dimension(800, 600);
 		screen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -26,9 +28,27 @@ public class MainWindow extends JFrame {
 				window.width, window.height);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		getContentPane().add(new Toolbar(this.getWidth(), powerschool, calendar), BorderLayout.NORTH);
-		getContentPane().add(calendar);
-		getContentPane().add(powerschool);
+		wrapper = new JPanel(layoutMgr = new CardLayout());
+		
+		ActionListener switchPanels = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (e.getActionCommand().equals("showcal"))
+					layoutMgr.show(wrapper, "cal");
+				else if (e.getActionCommand().equals("showps"))
+					layoutMgr.show(wrapper, "ps");
+			}
+		};
+		
+		getContentPane().add(new Toolbar(this.getWidth(), switchPanels), BorderLayout.NORTH);
+		
+		calendar = new Calendar();
+		powerschool = new PSPanel();
+		
+		wrapper.add(calendar, "cal");
+		wrapper.add(powerschool, "ps");
+		
+		getContentPane().add(wrapper);
 		setVisible(true);
 	}
 }
