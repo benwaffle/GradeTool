@@ -10,7 +10,8 @@ public class MainWindow extends JFrame {
 	private Dimension window;
 	
 	private Calendar calendar;
-
+	private PSPanel powerschool;
+	
 	public MainWindow() {
 		super("GradeTool");
 		setResizable(false);
@@ -22,10 +23,9 @@ public class MainWindow extends JFrame {
 				window.width, window.height);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		calendar = new Calendar();
-		getContentPane().add(new Toolbar(this.getWidth()), BorderLayout.NORTH);
-//		getContentPane().add(calendar);
-		getContentPane().add(new PSPanel());
+		getContentPane().add(new Toolbar(this.getWidth(), powerschool, calendar), BorderLayout.NORTH);
+		getContentPane().add(calendar = new Calendar());
+		getContentPane().add(powerschool = new PSPanel());
 		setVisible(true);
 	}
 }

@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.*;
 
 import javax.swing.*;
@@ -9,7 +11,7 @@ import javax.swing.*;
  * Calendar item.
  */
 @SuppressWarnings("serial")
-public class Calendar extends JPanel {
+public class Calendar extends JPanel implements ActionListener {
 	// drawing
 	private GraphicsConfiguration gc;
 	private Dimension content;
@@ -51,4 +53,6 @@ public class Calendar extends JPanel {
 		g2d.fillArc(50, 50, 200, 200, 0, 360);
 		screenUpdate();
 	}
+	@Override
+	public void actionPerformed(ActionEvent e) {}
 }

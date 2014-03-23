@@ -1,8 +1,10 @@
 package gui;
 
 import java.awt.Dimension;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
 @SuppressWarnings("serial")
@@ -10,7 +12,10 @@ public class Toolbar extends JToolBar {
 	JComboBox<String> userMenu = null;
 	JButton showPSPanel = null, showCalPanel = null;
 
-	public Toolbar(int parentWidth) {
+	PSPanel psPanel;
+	Calendar calPanel;
+	
+	public Toolbar(int parentWidth, JPanel psPanel, JPanel calPanel) {
 		create();
 		setSizes(parentWidth);
 
@@ -23,7 +28,11 @@ public class Toolbar extends JToolBar {
 	private void create() {
 		userMenu = new JComboBox<String>(
 				new String[] {"Ben Iofel","Log Out" });
+		
 		showPSPanel = new JButton("PowerSchool");
+		showPSPanel.addActionListener(psPanel);
+		showPSPanel.addActionListener(calPanel);
+		
 		showCalPanel = new JButton("Calendar");
 	}
 
