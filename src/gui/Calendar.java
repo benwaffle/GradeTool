@@ -1,17 +1,15 @@
 package gui;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.*;
+import java.awt.image.BufferedImage;
 
-import javax.swing.*;
+import javax.swing.JPanel;
 
 /**
  * Calendar item.
  */
 @SuppressWarnings("serial")
-public class Calendar extends JPanel implements ActionListener {
+public class Calendar extends JPanel {
 	// drawing
 	private GraphicsConfiguration gc;
 	private Dimension content;
@@ -58,6 +56,4 @@ public class Calendar extends JPanel implements ActionListener {
 		screenUpdate();
 		repaint();
 	}
-	@Override
-	public void actionPerformed(ActionEvent e) {}
 }

@@ -16,6 +16,9 @@ public class MainWindow extends JFrame {
 		super("GradeTool");
 		setResizable(false);
 
+		calendar = new Calendar();
+		powerschool = new PSPanel();
+		
 		window = new Dimension(800, 600);
 		screen = Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds((screen.width - window.width) / 2,
@@ -24,8 +27,8 @@ public class MainWindow extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		getContentPane().add(new Toolbar(this.getWidth(), powerschool, calendar), BorderLayout.NORTH);
-		getContentPane().add(calendar = new Calendar());
-		getContentPane().add(powerschool = new PSPanel());
+		getContentPane().add(calendar);
+		getContentPane().add(powerschool);
 		setVisible(true);
 	}
 }
