@@ -69,6 +69,8 @@ public class CalendarPanel extends JPanel {
 			}
 			public void mouseClicked(MouseEvent e) {
 				mouse = e.getPoint();
+				if (modal != null)
+					modal.act(mouse);
 			}
 			public void mouseEntered(MouseEvent e) {
 				mouse = e.getPoint();
@@ -168,7 +170,6 @@ public class CalendarPanel extends JPanel {
 			g.drawString((i-iDay+1)+"", 20+10+day*rincr, top+20+lincr*(i/7));
 	}
 	private void renderEvents(Graphics2D g) {
-		g.setColor(Color.red);
 		for (int i=0; i<assignments.length; i++)
 			if (assignments[i] != null)
 				for (int j=0; j<assignments[i].size(); j++) {
@@ -181,9 +182,16 @@ public class CalendarPanel extends JPanel {
 							+ (j == 0 ? py : 0), 
 						(int)r.getWidth() - (px+px2),
 						(int)(r.getHeight()/((double)as.size())) - 2*py);
+					
+					Color old = g.getColor();
+					if (ar.contains(mouse)) {
+						if (mouseDown) // display notification for assignment
+							displayNotification(new NotificationWindow(a));
+						g.setColor(Color.yellow); // respond to mouse
+					} else g.setColor(Color.red);
 					g.fillRect((int)ar.getX(), (int)ar.getY(),
 						(int)ar.getWidth(), (int)ar.getHeight());
-					Color old = g.getColor();
+					
 					g.setColor(new Color(210,210,210));
 					g.setFont(new Font("Arial", Font.PLAIN, 14));
 					g.drawString(a.getTitle(), (int)ar.getX(), (int)ar.getY()
@@ -217,13 +225,13 @@ public class CalendarPanel extends JPanel {
 		renderNotification(g); // modal goes above all
 		
 		screenUpdate();
-		// repaint(); // called on mouse events	
+		repaint(); // alternatively may be called on mouse events	
 	}
 	
 	// event handling
 	protected void processMouseMotionEvent(MouseEvent e) {
 		mouse = e.getPoint();
-		repaint();
+		// repaint();
 	}
 	/**
 	 * Displays a new notification window as a modal dialog in the Calendar.

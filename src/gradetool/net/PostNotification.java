@@ -23,6 +23,7 @@ public class PostNotification {
 				URLEncoder.encode(phone, "UTF-8"),
 				URLEncoder.encode(body, "UTF-8")
 			);
+			
 			URL url = new URL("http://iofel.me/gradetool/post.php");
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("POST");
