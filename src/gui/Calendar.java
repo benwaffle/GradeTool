@@ -7,13 +7,12 @@ import javax.swing.*;
 /**
  * Calendar item.
  */
-public class Calendar extends JPanel implements Runnable {
+public class Calendar extends JPanel {
 	private boolean started = false, running = false;
 	
 	// buffering
 	private Graphics2D g, bg; // graphics and background graphics
 	private BufferStrategy strategy;
-	private BufferedImage background;
 	
 	// drawing
 	private GraphicsConfiguration gc;
@@ -26,14 +25,8 @@ public class Calendar extends JPanel implements Runnable {
 				.getDefaultScreenDevice().getDefaultConfiguration();
 		
 		setSize(content = new Dimension(800, 540));
-		canvas = new Canvas(gc) {
-			public void paint(Graphics g) {
-				System.out.println("Paint.");
-			}
-		};
-		canvas.setSize(content);
+		setSize(content);
 		setBackground(Color.red);
-		// add(canvas);
 	}
 	/**
 	 * Creates a new <code>BufferedImage</code> from graphics. Useful for
@@ -51,70 +44,16 @@ public class Calendar extends JPanel implements Runnable {
 	 * Refreshes contents in the buffer.
 	 * @return If successful or not.
 	 */
-	public boolean screenUpdate() {
-		g.dispose(); // free resources
-		g = null;
-		
-		try {
-			strategy.show();
-			Toolkit.getDefaultToolkit().sync();
-			return !strategy.contentsLost();
-		} catch (NullPointerException e) {
-			System.out.println("NullPointerException encountered: ");
-			e.printStackTrace();
-		} catch (IllegalStateException e) {
-			System.out.println("IllegalStateException encountered: ");
-			e.printStackTrace();
-		}
-		
-		return true;
-	}
-	/**
-	 * Gets the main screen buffer.
-	 * @return The front buffer for the graphics.
-	 */
-	public Graphics2D getBuffer() {
-		if (g == null)
-			try {
-				g = (Graphics2D) strategy.getDrawGraphics();
-			} catch (IllegalStateException e) {
-				System.out.println("Illegal state for buffer strategy.");
-				e.printStackTrace();
-			}
-		return g;
+	public void screenUpdate() {
+		Toolkit.getDefaultToolkit().sync();
 	}
 	/* Renders contents to the <code>canvas</code> from graphics. */
-	public void render(Graphics2D g2d) {
+	public void paintComponent(Graphics g) { // formerly render(Graphics2D g)
+		Graphics2D g2d = (Graphics2D) g;
 		g2d.setColor(Color.black);
 		g2d.fillRect(0, 0, content.width, content.height);
 		g2d.setColor(Color.red);
 		g2d.fillArc(50, 50, 200, 200, 0, 360);
-	}
-	/* Starts the running of the main canvas. */
-	public void start() {
-		/*
-		background = createBufferedImage(content, true);
-		canvas.createBufferStrategy(2); // two buffers
-		do {
-			strategy = canvas.getBufferStrategy();
-		} while (strategy == null);
-		started = true;
-		run();*/
-	}
-	/**
-	 * Iterates through the maincanvas.
-	 */
-	public void run() {
-		if (!started || running) return;
-		running = true;
-		main: while (running) {
-			bg = (Graphics2D) background.getGraphics();
-			do {
-				if (!running) break main;
-				Graphics2D gb = getBuffer(); // front-screen buffer
-				render(bg); // render with background graphics (offscreen)
-				gb.drawImage(background, 0, 0, null); // draw to screen 
-			} while (!screenUpdate());
-		}
+		screenUpdate();
 	}
 }
