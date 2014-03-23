@@ -2,21 +2,16 @@ package gui;
 
 import java.awt.*;
 import java.awt.image.*;
+
 import javax.swing.*;
 
 /**
  * Calendar item.
  */
+@SuppressWarnings("serial")
 public class Calendar extends JPanel {
-	private boolean started = false, running = false;
-	
-	// buffering
-	private Graphics2D g, bg; // graphics and background graphics
-	private BufferStrategy strategy;
-	
 	// drawing
 	private GraphicsConfiguration gc;
-	private Canvas canvas;
 	private Dimension content;
 	
 	public Calendar() {
@@ -25,7 +20,6 @@ public class Calendar extends JPanel {
 				.getDefaultScreenDevice().getDefaultConfiguration();
 		
 		setSize(content = new Dimension(800, 540));
-		setSize(content);
 		setBackground(Color.red);
 	}
 	/**

@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.*;
+
 import javax.swing.*;
 
 @SuppressWarnings("serial")
@@ -23,7 +24,8 @@ public class MainWindow extends JFrame {
 		
 		calendar = new Calendar();
 		getContentPane().add(new Toolbar(this.getWidth()), BorderLayout.NORTH);
-		getContentPane().add(calendar);
+//		getContentPane().add(calendar);
+		getContentPane().add(new PSPanel());
 		setVisible(true);
 	}
 }
