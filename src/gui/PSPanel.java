@@ -30,7 +30,6 @@ public class PSPanel extends JPanel {
 		courses = coursesFromPs;
 		Arrays.sort(this.courses);
 		
-		
 		asmtsView = new JList<Assignment>(){{
 			setFixedCellHeight(30);
 			setFixedCellWidth(asmtWidth);

@@ -138,8 +138,7 @@ public class LoginWindow extends JFrame {
 
 	public void login(){
 		try {
-//			if (psInit.isAlive())
-				psInit.join(); // wait until finished init()
+			psInit.join(); // wait until finished init()
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
