@@ -8,28 +8,52 @@ import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame {
+	/**
+	 * The dimensions of the computer screen
+	 */
 	private Dimension screen;
+	
+	/**
+	 * The dimensions of the application window
+	 */
 	private Dimension window;
 	
+	/**
+	 * CardLayout to switch between PowerSchool and Calendar views
+	 */
 	private CardLayout layoutMgr;
 	
+	/**
+	 * Wrapper to hold all "cards"
+	 */
 	private JPanel wrapper;
+	
+	/**
+	 * The calendar JPanel
+	 */
 	private CalendarPanel calendar;
+	
+	/**
+	 * The powerschool JPanel
+	 */
 	private PSPanel powerschool;
 	
 	public MainWindow() {
+		// this window
 		super("GradeTool");
 		setResizable(false);
 		
+		// set dimensions and center window
 		screen = Toolkit.getDefaultToolkit().getScreenSize();
 		window = new Dimension(1244, 700);
-		setBounds((screen.width - window.width) / 2,
-				(screen.height - window.height) / 2,
-				window.width, window.height);
+		setBounds((screen.width - window.width) / 2, 
+				(screen.height - window.height) / 2, window.width, window.height);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		// create a wrapper 
 		wrapper = new JPanel(layoutMgr = new CardLayout());
 		
+		// buttons in the Toolbar should show correct panel in card layout
 		ActionListener switchPanels = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -40,15 +64,21 @@ public class MainWindow extends JFrame {
 			}
 		};
 		
+		// add toolbar to this window
 		getContentPane().add(new Toolbar(this.getWidth(), switchPanels), BorderLayout.NORTH);
 		
+		// create calendar and powerschool panels
+		powerschool = new PSPanel(getWidth());
 		calendar = new CalendarPanel();
-		powerschool = new PSPanel();
 		
-		wrapper.add(calendar, "cal");
+		// add panels to the wrapper
 		wrapper.add(powerschool, "ps");
+		wrapper.add(calendar, "cal");
 		
+		// add wrapper to current window
 		getContentPane().add(wrapper);
+		
+		// show this window
 		setVisible(true);
 	}
 }
