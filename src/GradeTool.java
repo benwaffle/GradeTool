@@ -1,4 +1,4 @@
-import gui.MainWindow;
+import gui.*;
 
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;

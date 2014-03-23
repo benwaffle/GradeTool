@@ -1,8 +1,7 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-
+import java.awt.*;
+import java.awt.image.*;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
@@ -11,6 +10,9 @@ public class MainWindow extends JFrame {
 	JComboBox<String> userMenu = null;
 	JButton powerschool = null, calendar = null;
 	final int dropDownWidthFrac = 5;
+	
+	private Dimension screen;
+	private Dimension window;
 	
 	public MainWindow() { 
 		//this window
@@ -48,6 +50,12 @@ public class MainWindow extends JFrame {
 
 		//add toolbar to window
 		add(toolbar, BorderLayout.NORTH);
+		
+		window = new Dimension(800, 600);
+		screen = Toolkit.getDefaultToolkit().getScreenSize();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds((screen.width-window.width)/2, (screen.height-window.height)/2,
+			window.width, window.height);
 		setVisible(true);
 	}
 
