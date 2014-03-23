@@ -144,7 +144,7 @@ public class LoginWindow extends JFrame {
 		}
 		
 		if (lib == null){
-			lib = new PSlib(serverField.getText());
+			lib = new PSlib(serverField.getText().trim());
 		}
 		
 		loginT = new Thread(new Runnable() {

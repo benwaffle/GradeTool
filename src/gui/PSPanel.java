@@ -2,15 +2,16 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
+import java.util.ArrayList;
 import java.util.Arrays;
 
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableCellRenderer;
 
 import data.Assignment;
 import data.Course;
@@ -18,7 +19,7 @@ import data.Course;
 @SuppressWarnings("serial")
 public class PSPanel extends JPanel {
 	JList<Course> courseView;
-	JList<Assignment> asmtsView;
+	JTable asmtsView;
 	
 	Course[] courses;
 	
@@ -30,20 +31,15 @@ public class PSPanel extends JPanel {
 		courses = coursesFromPs;
 		Arrays.sort(this.courses);
 		
-		asmtsView = new JList<Assignment>(){{
-			setFixedCellHeight(30);
-			setFixedCellWidth(asmtWidth);
-			setBackground(null);
-			setFont(new Font("Arial", Font.PLAIN, 20));
-		}};
+		asmtsView = new JTable(30, 1);
+		asmtsView.setDefaultRenderer(Assignment.class, new AssignmentCellRenderer());
+		
 		JScrollPane asmtsScroll = new JScrollPane(asmtsView);
 		
 		final ListSelectionListener selectLis = new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				asmtsView.setListData(
-						courses[courseView.getSelectedIndex()].getAsmts().toArray(
-								new Assignment[10]));
+				
 			}
 		};
 		
@@ -61,4 +57,22 @@ public class PSPanel extends JPanel {
 		add(sidebar, BorderLayout.WEST);
 		add(asmtsScroll, BorderLayout.CENTER);
 	}
+}
+
+class AssignmentCellRenderer extends JPanel implements TableCellRenderer {
+
+	@Override
+	public Component getTableCellRendererComponent(
+			JTable table,
+			Object value,
+			boolean isSelected,
+			boolean hasFocus,
+			int row,
+			int column) {
+		this.add(new JLabel(value.toString()));
+		this.add(new JButton(">"));
+		
+		return this;
+	}
+	
 }
