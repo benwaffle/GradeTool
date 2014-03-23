@@ -13,4 +13,11 @@ public class Rendering {
 		int len = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
 		g.drawString(s, x - len/2, y);
 	}
+	/**
+	 * Determines if a point is within a rectangular boundary.
+	 */
+	public static boolean pointWithin(Point p, int x, int y, int width, int height) {
+		return p.getX() >= x && p.getX() <= x+width 
+			&& p.getY() >= y && p.getY() <= y+height;
+	}
 }

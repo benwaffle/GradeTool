@@ -9,6 +9,7 @@ import java.util.*;
 import java.text.*;
 
 import gui.gfx.*;
+import gui.calendar.*;
 
 /**
  * Calendar item.
@@ -20,6 +21,7 @@ public class CalendarPanel extends JPanel {
 	private Dimension content;
 	
 	// data
+	private Calendar cal;
 	private Date date;
 	private String[] days = new String[] {
 		"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
@@ -32,6 +34,11 @@ public class CalendarPanel extends JPanel {
 	int rheight, lincr;
 	int rwidth, rincr;
 	
+	// event handling
+	private Point mouse;
+	private boolean mouseDown;
+	private NotificationWindow modal; // our modal notification dialog
+	
 	public CalendarPanel() {
 		super(true); // set isDoubleBuffered to true
 		gc = GraphicsEnvironment.getLocalGraphicsEnvironment()
@@ -42,9 +49,31 @@ public class CalendarPanel extends JPanel {
 		
 		// locale
 		date = new Date();
+		cal = Calendar.getInstance();
 		
 		// event handling
-		enableEvents(MouseEvent.MOUSE_MOVED);
+		enableEvents(MouseEvent.MOUSE_MOVED | MouseEvent.MOUSE_CLICKED
+			| MouseEvent.MOUSE_PRESSED);
+		mouse = new Point(-1,-1);
+		addMouseListener(new MouseListener() {
+			public void mousePressed(MouseEvent e) {
+				mouse = e.getPoint();
+				mouseDown = true;
+			}
+			public void mouseReleased(MouseEvent e) {
+				mouse = e.getPoint();
+				mouseDown = false;
+			}
+			public void mouseClicked(MouseEvent e) {
+				mouse = e.getPoint();
+			}
+			public void mouseEntered(MouseEvent e) {
+				mouse = e.getPoint();
+			}
+			public void mouseExited(MouseEvent e) {
+				mouse = e.getPoint();
+			}
+		});
 		
 		// colors
 		bgColor = new Color(32, 32, 32);
@@ -73,12 +102,12 @@ public class CalendarPanel extends JPanel {
 		content = new Dimension(getWidth(), getHeight());
 		// style
 		rheight = content.height - top - btm; // - top - bottom
-			lincr = (int)Math.round((double)rheight/5);
+			lincr = (int)Math.round((double)rheight/6);
 		rwidth = content.width - btm;
 			rincr = (int)Math.round((double)rwidth/7);
 		super.paint(g);
 	}
-	
+		
 	// render functions
 	private void renderTitle(Graphics2D g) {
 		String month = new SimpleDateFormat("MMMM", Locale.ENGLISH).format(date),
@@ -89,10 +118,22 @@ public class CalendarPanel extends JPanel {
 	}
 	private void renderGrid(Graphics2D g) {
 		g.setColor(new Color(140,140,140,140));
-		for (int i=0; i<6; i++) // horizontal
+		for (int i=0; i<7; i++) // horizontal
 			g.drawLine(20, top + i*lincr, content.width - 20, top + i*lincr);
 		for (int i=0; i<8; i++) // vertical
-			g.drawLine(20 + i*rincr, 100, 20 + i*rincr, content.height-btm);
+			g.drawLine(20 + i*rincr, top-40, 20 + i*rincr, content.height-btm);
+		// render rectangles for selection
+		for (int x=20; x<content.width-20; x+=rincr)
+			for (int y=top; y<content.height-btm; y+=lincr)
+				if (Rendering.pointWithin(mouse, x, y, rincr, lincr)
+				&& Rendering.pointWithin(mouse, 20, top, content.width-20,
+					content.height-btm-top)) {
+					Color old = g.getColor();
+					g.setColor(mouseDown ? new Color(149,229,55)
+						: new Color(49,129,217));
+					g.fillRect(x, y, rincr, lincr);
+					g.setColor(old);
+				}
 	}
 	private void renderLabels(Graphics2D g) {
 		g.setColor(new Color(140,140,140));
@@ -101,7 +142,11 @@ public class CalendarPanel extends JPanel {
 		for (int i=0; i<days.length; i++)
 			Rendering.centerText(g, days[i], 20 + i*rincr + rincr/2, 120);
 		// render numerical days
-		for (int i=0; i<28; i++);
+		int last = cal.getActualMaximum(Calendar.DAY_OF_MONTH),
+			day = 7 - cal.getMinimalDaysInFirstWeek(),
+			iDay = day;
+		for (int i=iDay; i<last+iDay; day=(++i)%7)
+			Rendering.centerText(g, (i-iDay+1)+"", 20 + 10 + day*rincr, 150 + lincr*(i/7));
 	}
 	// render functions
 	
@@ -113,6 +158,7 @@ public class CalendarPanel extends JPanel {
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
 							RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		
+		g.clearRect(0, 0, content.width, content.height);
 		// render background
 		g.setColor(bgColor);
 		g.fillRect(0, 0, content.width, content.height);
@@ -124,8 +170,17 @@ public class CalendarPanel extends JPanel {
 		screenUpdate();
 		repaint();
 	}
+	
 	// event handling
 	protected void processMouseMotionEvent(MouseEvent e) {
-		System.out.println(e.getX());
+		mouse = e.getPoint();
+	}
+	/**
+	 * Displays a new notification window as a modal dialog in the Calendar.
+	 * @param win A notification window to display.
+	 */
+	public void displayNotification(NotificationWindow win) {
+		modal = win;
+		
 	}
 }
