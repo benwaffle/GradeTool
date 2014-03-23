@@ -40,4 +40,8 @@ public class Assignment {
 		// TODO: work on notification date
 		notificationDate = date;
 	}
+	@Override
+	public String toString() {
+		return title;
+	}
 }

@@ -1,5 +1,6 @@
 import gui.LoginWindow;
 
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 import com.benwaffle.pslib.PSlib;
@@ -17,7 +18,14 @@ public class GradeTool {
 		Thread psInit = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				PSlib.init();
+				try {
+					PSlib.init();
+				} catch (Exception e){
+					JOptionPane.showMessageDialog(null, 
+							"I can't connect to PowerSchool. Bye for now...", 
+							"Error", JOptionPane.ERROR_MESSAGE);
+					System.exit(1);
+				}
 			}
 		});
 		psInit.start();

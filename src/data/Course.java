@@ -2,7 +2,7 @@ package data;
 
 import java.util.ArrayList;
 
-public class Course {
+public class Course implements Comparable<Course> {
 	private String name;
 	private ArrayList<Assignment> asmts;
 	private long id;
@@ -27,5 +27,15 @@ public class Course {
 	
 	public ArrayList<Assignment> getAsmts(){
 		return asmts;
+	}
+	
+	@Override
+	public String toString() {
+		return name;
+	}
+
+	@Override
+	public int compareTo(Course o) {
+		return name.compareTo(o.name);
 	}
 }
