@@ -2,7 +2,7 @@ package gui;
 
 import java.awt.*;
 import java.awt.image.*;
-
+import java.awt.event.*;
 import javax.swing.*;
 
 /**
@@ -21,6 +21,7 @@ public class Calendar extends JPanel {
 		
 		setSize(content = new Dimension(getWidth(), getHeight()));
 		setBackground(new Color(0,0,0,0));
+		enableEvents(MouseEvent.MOUSE_MOVED);
 	}
 	/**
 	 * Creates a new <code>BufferedImage</code> from graphics. Useful for
@@ -55,5 +56,8 @@ public class Calendar extends JPanel {
 		g2d.fillArc(50, 50, 200, 200, 0, 360);
 		screenUpdate();
 		repaint();
+	}
+	protected void processMouseMotionEvent(MouseEvent e) {
+		System.out.println(e.getX());
 	}
 }
