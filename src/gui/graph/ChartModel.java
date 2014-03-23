@@ -10,10 +10,6 @@ import data.*;
  */
 public abstract class ChartModel {
 	/**
-	 * The name of the chart, for example, a "Bar" or "Scatter Plot."
-	 */
-	private String name;
-	/**
 	 * Renders the <code>ChartModel</code> to a graphics buffer.
 	 * @param g The graphics object to render with.
 	 * @param data A set of data relevant to this graph.
