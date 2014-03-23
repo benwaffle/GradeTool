@@ -1,12 +1,13 @@
 package gradetool.gui;
 
+import gui.calendar.NotificationWindow;
+
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -113,11 +114,13 @@ public class MainWindow extends JFrame {
 		};
 		
 		// add toolbar to this window
-		getContentPane().add(new Toolbar(this.getWidth(), switchPanels), BorderLayout.NORTH);
+		getContentPane().add(new Toolbar(this.getWidth(), switchPanels, 
+				lib.getStudentData().getStudent().getFirstName() + " " + lib.getStudentData().getStudent().getLastName()), 
+				BorderLayout.NORTH);
 		
 		// create calendar and powerschool panels
-		powerschool = new PSPanel(getWidth(), getCourses(lib));
 		calendar = new CalendarPanel();
+		powerschool = new PSPanel(getWidth(), getCourses(lib), calendar);
 		
 		// add panels to the wrapper
 		wrapper.add(powerschool, "ps");

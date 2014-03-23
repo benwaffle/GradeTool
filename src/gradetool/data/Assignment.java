@@ -20,8 +20,7 @@ public class Assignment {
 	 * @param subj A predetermined scholarly subject of the event.
 	 * @param psId PowerSchool ID
 	 */
-	public Assignment(String title, Date due, String descr, Long psId,
-		Long psSecID) {
+	public Assignment(String title, Date due, String descr, Long psId, Long psSecID) {
 		this.title = title;
 		dueDate = due;
 		description = descr;

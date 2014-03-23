@@ -3,6 +3,7 @@ package gradetool.gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
@@ -24,8 +25,8 @@ public class Toolbar extends JToolBar {
 	 * @param toggle
 	 *            buttons will notify this action listener
 	 */
-	public Toolbar(int parentWidth, ActionListener toggle) {
-		create(toggle);
+	public Toolbar(int parentWidth, ActionListener toggle, String name) {
+		create(toggle, name);
 		setSizes(parentWidth);
 
 		setFloatable(false);
@@ -41,9 +42,15 @@ public class Toolbar extends JToolBar {
 	 * 
 	 * @param toggle
 	 */
-	private void create(ActionListener toggle) {
+	private void create(ActionListener toggle, String name) {
 		userMenu = new JComboBox<String>(
-				new String[] { "Ben Iofel", "Log Out" });
+				new String[] { name, "Log Out" });
+		userMenu.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 
 		showPSPanel = new JButton("PowerSchool");
 		showPSPanel.setActionCommand("showps");
