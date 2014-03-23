@@ -9,7 +9,7 @@ public class MainWindow extends JFrame {
 	private Dimension screen;
 	private Dimension window;
 	
-	private Calendar calendar;
+	private CalendarPanel calendar;
 	private PSPanel powerschool;
 	
 	public MainWindow() {
@@ -17,7 +17,7 @@ public class MainWindow extends JFrame {
 		setResizable(false);
 
 		window = new Dimension(1244, 700);
-		calendar = new Calendar();
+		calendar = new CalendarPanel();
 		powerschool = new PSPanel();
 		
 		screen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -28,7 +28,7 @@ public class MainWindow extends JFrame {
 		
 		getContentPane().add(new Toolbar(this.getWidth(), powerschool, calendar), BorderLayout.NORTH);
 		getContentPane().add(calendar);
-		getContentPane().add(powerschool);
+		// getContentPane().add(powerschool);
 		setVisible(true);
 	}
 }

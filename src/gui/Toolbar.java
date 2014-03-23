@@ -15,9 +15,9 @@ public class Toolbar extends JToolBar {
 	JButton showPSPanel = null, showCalPanel = null;
 
 	PSPanel psPanel;
-	Calendar calPanel;
+	CalendarPanel calPanel;
 	
-	public Toolbar(int parentWidth, PSPanel psPanel, Calendar calPanel) {
+	public Toolbar(int parentWidth, PSPanel psPanel, CalendarPanel calPanel) {
 		this.psPanel = psPanel;
 		this.calPanel = calPanel;
 		create();
@@ -41,7 +41,7 @@ public class Toolbar extends JToolBar {
 			}
 		});
 		
-		showCalPanel = new JButton("Calendar");
+		showCalPanel = new JButton("CalendarPanel");
 		showCalPanel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				psPanel.setVisible(false);

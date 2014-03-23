@@ -4,24 +4,33 @@ import java.awt.*;
 import java.awt.image.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.*;
 
 /**
  * Calendar item.
  */
 @SuppressWarnings("serial")
-public class Calendar extends JPanel {
+public class CalendarPanel extends JPanel {
 	// drawing
 	private GraphicsConfiguration gc;
 	private Dimension content;
 	
-	public Calendar() {
+	// style
+	private Color bgColor;
+	
+	public CalendarPanel() {
 		super(true); // set isDoubleBuffered to true
 		gc = GraphicsEnvironment.getLocalGraphicsEnvironment()
 				.getDefaultScreenDevice().getDefaultConfiguration();
 		
 		setSize(content = new Dimension(getWidth(), getHeight()));
 		setBackground(new Color(0,0,0,0));
+		
+		// event handling
 		enableEvents(MouseEvent.MOUSE_MOVED);
+		
+		// colors
+		bgColor = new Color(32, 32, 32);
 	}
 	/**
 	 * Creates a new <code>BufferedImage</code> from graphics. Useful for
@@ -46,17 +55,38 @@ public class Calendar extends JPanel {
 		content = new Dimension(getWidth(), getHeight());
 		super.paint(g);
 	}
+	
+	// render functions
+	private void renderTitle(Graphics2D g) {
+		String month = (new Calendar()).getDisplayName(Calendar.MONTH,
+			Calendar.SHORT_FORMAT, new Locale("en_US"));
+		g.setColor(new Color(220,250,255));
+		g.setFont(new Font("Arial", Font.PLAIN, 30));
+		g.drawString("March 2014", 30, 50);
+	}
+	private void renderGrid(Graphics2D g) {
+		
+	}
+	// render functions
+	
 	/* Renders contents to the <code>canvas</code> from graphics. */
-	public void paintComponent(Graphics g) { // formerly render(Graphics2D g)
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g2d.setColor(Color.black);
-		g2d.fillRect(0, 0, content.width, content.height);
-		g2d.setColor(Color.red);
-		g2d.fillArc(50, 50, 200, 200, 0, 360);
+	public void paintComponent(Graphics graphics) { // formerly render(Graphics2D g)
+		Graphics2D g = (Graphics2D) graphics;
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+							RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+							RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		
+		// render background
+		g.setColor(bgColor);
+		g.fillRect(0, 0, content.width, content.height);
+		
+		renderTitle(g);
+		
 		screenUpdate();
 		repaint();
 	}
+	// event handling
 	protected void processMouseMotionEvent(MouseEvent e) {
 		System.out.println(e.getX());
 	}
