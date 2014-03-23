@@ -2,11 +2,13 @@ package gui;
 
 import java.awt.*;
 import java.awt.image.*;
+
 import javax.swing.*;
 
 /**
  * Calendar item.
  */
+@SuppressWarnings("serial")
 public class Calendar extends JPanel {
 	// drawing
 	private GraphicsConfiguration gc;
