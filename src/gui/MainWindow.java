@@ -1,12 +1,27 @@
 package gui;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import powerschool.rest.vo.xsd.AssignmentVO;
+import powerschool.rest.vo.xsd.SectionVO;
+import powerschool.rest.vo.xsd.StudentDataVO;
 
 import com.benwaffle.pslib.PSlib;
+
+import data.Assignment;
+import data.Course;
 
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame {
@@ -42,6 +57,34 @@ public class MainWindow extends JFrame {
 	
 	private PSlib lib;
 	
+	private ArrayList<Course> courses;
+	
+	public Course[] getCourses(PSlib lib){
+		StudentDataVO data = lib.getStudentData();
+		HashMap<Long, Course> tmpCourses = new HashMap<Long, Course>();
+		
+		for (SectionVO sec : data.getSections()) // get all courses
+			if (!tmpCourses.containsKey(sec.getId()))
+				tmpCourses.put(sec.getId(), new Course(sec.getSchoolCourseTitle(), sec.getId()));
+		
+		for (AssignmentVO ass : data.getAssignments()){
+			Calendar dueDate = Calendar.getInstance();
+			dueDate.set(ass.getDueDate().getYear(), 
+					ass.getDueDate().getMonth(), 
+					ass.getDueDate().getDay());
+			
+			tmpCourses.get(ass.getSectionid()).addAsmt(					
+					new Assignment(
+							ass.getName(), // ps assignment name 
+							dueDate.getTime(),
+							ass.getDescription(), // ps description
+							ass.getId(), // ps assignment ID
+							ass.getSectionid())); // ps course ID
+		}
+		
+		return tmpCourses.values().toArray(new Course[tmpCourses.size()]);
+	}
+	
 	public MainWindow(PSlib lib) {		
 		// this window
 		super("GradeTool");
@@ -74,7 +117,7 @@ public class MainWindow extends JFrame {
 		getContentPane().add(new Toolbar(this.getWidth(), switchPanels), BorderLayout.NORTH);
 		
 		// create calendar and powerschool panels
-		powerschool = new PSPanel(getWidth());
+		powerschool = new PSPanel(getWidth(), getCourses(lib));
 		calendar = new CalendarPanel();
 		
 		// add panels to the wrapper

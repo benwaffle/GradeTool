@@ -1,13 +1,15 @@
-package calendar;
+package data;
 
 import java.util.*;
 
-public class CalendarEvent {
+public class Assignment {
 	private String title;
 	private Date dueDate;
 	private String description;
-	private String subject;
 	private Date notificationDate; // TODO: use Twilio API to send to users
+	
+	private Long psAssID; // assignment ID from powerschool
+	private Long psCourseID; // class ID from powerschool
 	
 	/**
 	 * Creates a new <code>CalendarEvent</code>, which holds information for
@@ -17,11 +19,13 @@ public class CalendarEvent {
 	 * @param descr A more verbose description of the event.
 	 * @param subj A predetermined scholarly subject of the event.
 	 */
-	public CalendarEvent(String title, Date due, String descr, String subj) {
+	public Assignment(String title, Date due, String descr, Long psId, Long psSecID) {
 		this.title = title;
 		dueDate = due;
 		description = descr;
-		subject = subj;
+		
+		psAssID = psId; // assignment ID
+		psCourseID = psSecID; // course ID
 	}
 	public String getTitle() {
 		return title;
@@ -31,9 +35,6 @@ public class CalendarEvent {
 	}
 	public String getDescription() {
 		return description;
-	}
-	public String getSubject() {
-		return subject;
 	}
 	public void setPhoneNotification(Date date) {
 		// TODO: work on notification date

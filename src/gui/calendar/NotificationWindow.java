@@ -1,13 +1,14 @@
 package gui.calendar;
 
 import java.awt.*;
-import calendar.*;
+
+import data.*;
 
 public class NotificationWindow {
-	private CalendarEvent e;
+	private Assignment e;
 	private boolean open = false;
 	
-	public NotificationWindow(CalendarEvent e) {
+	public NotificationWindow(Assignment e) {
 		this.e = e;
 	}
 	/**
