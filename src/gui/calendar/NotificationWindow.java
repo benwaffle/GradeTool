@@ -29,4 +29,7 @@ public class NotificationWindow {
 	public void set(boolean isOpen) {
 		open = isOpen;
 	}
+	public boolean closed() {
+		return !open;
+	}
 }

@@ -39,4 +39,9 @@ public class CalendarEvent {
 		// TODO: work on notification date
 		notificationDate = date;
 	}
+	public Calendar getCalendar() {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(dueDate);
+		return cal;
+	}
 }

@@ -10,6 +10,7 @@ import java.text.*;
 
 import gui.gfx.*;
 import gui.calendar.*;
+import calendar.*;
 
 /**
  * Calendar item.
@@ -27,6 +28,7 @@ public class CalendarPanel extends JPanel {
 		"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
 		"Saturday"
 	};
+	private HashMap<Rectange, CalendarEvent> events; // list of calendar events
 	
 	// style
 	private Color bgColor;
@@ -66,6 +68,7 @@ public class CalendarPanel extends JPanel {
 			}
 			public void mouseClicked(MouseEvent e) {
 				mouse = e.getPoint();
+				
 			}
 			public void mouseEntered(MouseEvent e) {
 				mouse = e.getPoint();
@@ -78,6 +81,8 @@ public class CalendarPanel extends JPanel {
 		// colors
 		bgColor = new Color(32, 32, 32);
 		
+		// data
+		events = new HashMap<Rectangle,CalendarEvent>();
 	}
 	/**
 	 * Creates a new <code>BufferedImage</code> from graphics. Useful for
@@ -105,6 +110,18 @@ public class CalendarPanel extends JPanel {
 			lincr = (int)Math.round((double)rheight/6);
 		rwidth = content.width - btm;
 			rincr = (int)Math.round((double)rwidth/7);
+		
+		// reset map items
+		events.clear();
+		// render numerical days
+		/*
+		int last = cal.getActualMaximum(Calendar.DAY_OF_MONTH),
+			day = 7 - cal.getMinimalDaysInFirstWeek(),
+			iDay = day;
+		for (int i=iDay; i<last+iDay; day=(++i)%7)
+			if (calendarEvents.contains(i-iDay+1)) // add to event list
+				events.put(new Rectangle(20 + day*rincr, top + lincr*(i/7),
+					rincr, lincr), calendarEvents.get(i-iDay+1));*/
 		super.paint(g);
 	}
 		
@@ -146,7 +163,14 @@ public class CalendarPanel extends JPanel {
 			day = 7 - cal.getMinimalDaysInFirstWeek(),
 			iDay = day;
 		for (int i=iDay; i<last+iDay; day=(++i)%7)
-			Rendering.centerText(g, (i-iDay+1)+"", 20 + 10 + day*rincr, 150 + lincr*(i/7));
+			Rendering.centerText(g, (i-iDay+1)+"", 20 + 10 + day*rincr, top 10 +
+				lincr*(i/7));
+	}
+	private void renderNotification(Graphics2D g) {
+		if (modal != null)
+			modal.render(g, content); // render with notification window
+		else if (modal != null && modal.closed())
+			modal = null;
 	}
 	// render functions
 	
@@ -166,6 +190,7 @@ public class CalendarPanel extends JPanel {
 		renderTitle(g);
 		renderGrid(g);
 		renderLabels(g);
+		renderNotification(g); // modal goes above all
 		
 		screenUpdate();
 		repaint();
@@ -181,6 +206,16 @@ public class CalendarPanel extends JPanel {
 	 */
 	public void displayNotification(NotificationWindow win) {
 		modal = win;
-		
+		modal.set(true); // open the notification object
+	}
+	
+	// data handling
+	public void addCalendarEvent(CalendarEvent e) {
+		if (events.containsValue(e)) return; // prevent duplicate entries
+		Calendar cal = e.getCalendar();
+		int iDay = 7 - cal.getMinimalDaysInFirstWeek();
+		int d = cal.get(Calendar.DAY_OF_MONTH);
+		events.put(new Rectangle(20 + d*rincr, top + lincr*(d/7), rincr, lincr),
+			e); // add an event
 	}
 }

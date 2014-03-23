@@ -43,7 +43,7 @@ for arg in "$@"; do
 done
 
 if [ $manifest_level -gt 0 ]; then # set up manifest
-	classes="."$(find lib -type f -name '*.jar' | tr '\n' ' ')
+	classes=". "$(find lib -type f -name '*.jar' | tr '\n' ' ')
 	echo "Manifest-Version: 1.0" > $mf_file # erase from start
 	printf "Name: %s\n" "`basename "$(pwd)"`" >> $mf_file
 	if [ $manifest_level -gt 1 ]; then
