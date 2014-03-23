@@ -1,9 +1,11 @@
-package gui;
+package gradetool.gui;
+
+import gradetool.data.Assignment;
+import gradetool.data.Course;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.DateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 
@@ -12,9 +14,6 @@ import javax.swing.border.MatteBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableCellRenderer;
-
-import data.Assignment;
-import data.Course;
 
 @SuppressWarnings("serial")
 public class PSPanel extends JPanel {

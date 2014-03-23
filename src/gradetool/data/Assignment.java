@@ -1,4 +1,4 @@
-package data;
+package gradetool.data;
 
 import java.util.*;
 

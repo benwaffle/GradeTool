@@ -1,4 +1,4 @@
-package gui.gfx;
+package gradetool.gui.gfx;
 
 import java.awt.*;
 import java.awt.image.*;

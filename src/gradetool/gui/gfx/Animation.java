@@ -1,4 +1,4 @@
-package gui.gfx;
+package gradetool.gui.gfx;
 
 public class Animation {
 	/* Start and end times for our animation. */

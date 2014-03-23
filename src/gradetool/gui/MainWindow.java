@@ -1,4 +1,4 @@
-package gui;
+package gradetool.gui;
 
 import gui.calendar.NotificationWindow;
 

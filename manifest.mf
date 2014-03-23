@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
 Name: GradeTool
-Main-Class: CalendarTest
-Class-Path: . lib/psapi.jar
+Main-Class: GradeTool
+Class-Path: . lib/psapi.jar lib/twilio.jar
  

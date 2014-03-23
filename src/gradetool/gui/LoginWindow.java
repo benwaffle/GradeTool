@@ -1,4 +1,4 @@
-package gui;
+package gradetool.gui;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
