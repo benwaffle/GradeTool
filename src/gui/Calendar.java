@@ -25,21 +25,14 @@ public class Calendar extends JPanel implements Runnable {
 		gc = GraphicsEnvironment.getLocalGraphicsEnvironment()
 				.getDefaultScreenDevice().getDefaultConfiguration();
 		
-		content = getSize();
+		setSize(content = new Dimension(800, 600));
 		canvas = new Canvas(gc) {
 			public void paint(Graphics g) {
 				System.out.println("Paint.");
 			}
 		};
-		canvas.setSize(content); // resize to fill entire 
+		canvas.setSize(content);
 		add(canvas, 0);
-		background = createBufferedImage(content, true);
-		canvas.createBufferStrategy(2); // two buffers
-		
-		do {
-			strategy = canvas.getBufferStrategy();
-		} while (strategy == null);
-		start();
 	}
 	/**
 	 * Creates a new <code>BufferedImage</code> from graphics. Useful for
@@ -98,6 +91,11 @@ public class Calendar extends JPanel implements Runnable {
 	}
 	/* Starts the running of the main canvas. */
 	public void start() {
+		background = createBufferedImage(content, true);
+		canvas.createBufferStrategy(2); // two buffers
+		do {
+			strategy = canvas.getBufferStrategy();
+		} while (strategy == null);
 		started = true;
 		run();
 	}
