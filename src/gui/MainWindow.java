@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import com.benwaffle.pslib.PSlib;
+
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame {
 	/**
@@ -38,10 +40,14 @@ public class MainWindow extends JFrame {
 	 */
 	private PSPanel powerschool;
 	
-	public MainWindow() {
+	private PSlib lib;
+	
+	public MainWindow(PSlib lib) {		
 		// this window
 		super("GradeTool");
 		setResizable(true);
+		
+		this.lib = lib;
 		
 		// set dimensions and center window
 		screen = Toolkit.getDefaultToolkit().getScreenSize();

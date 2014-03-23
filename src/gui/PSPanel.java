@@ -10,7 +10,7 @@ import javax.swing.border.MatteBorder;
 
 @SuppressWarnings("serial")
 public class PSPanel extends JPanel {
-	JList<String> courses;
+	JList<String> courses, assignments;
 
 	public PSPanel(final int parentWidth) {
 		setLayout(new BorderLayout());
@@ -19,11 +19,11 @@ public class PSPanel extends JPanel {
 		) {
 			{
 				setSelectionBackground(new Color(0, 128, 255));
-				setFixedCellHeight(40);
+				setFixedCellHeight(30);
 				setFixedCellWidth(parentWidth / 5);
 				setForeground(Color.black);
 				setBackground(null);
-				setFont(new Font("Arial", Font.PLAIN, 30));
+				setFont(new Font("Arial", Font.PLAIN, 20));
 				setBorder(new MatteBorder(0, 0, 0, 1, Color.black));
 			}
 		};
