@@ -1,6 +1,6 @@
 package gradetool.gui;
 
-import gui.calendar.NotificationWindow;
+import gradetool.gui.calendar.NotificationWindow;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -21,8 +21,8 @@ import powerschool.rest.vo.xsd.StudentDataVO;
 
 import com.benwaffle.pslib.PSlib;
 
-import data.Assignment;
-import data.Course;
+import gradetool.data.Assignment;
+import gradetool.data.Course;
 
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame {
